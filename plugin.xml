@@ -14,15 +14,18 @@
                 <param name="ios-package" value="SCamera"/>
             </feature>
         </config-file>
+        <header-file src="src/ios/UIImage+CropScaleOrientation.h" />
+        <source-file src="src/ios/UIImage+CropScaleOrientation.m" />
         <header-file src="src/ios/SimpleCam/SimpleCam.h" />
         <source-file src="src/ios/SimpleCam/SimpleCam.m" />
         <header-file src="src/ios/SCamera.h" />
         <source-file src="src/ios/SCamera.m" />
-        <header-file src="src/ios/UIImage+CropScaleOrientation.h" />
-        <source-file src="src/ios/UIImage+CropScaleOrientation.m" />
         <resource-file src="src/ios/SimpleCam/Icons/CameraRotate.png" />
         <resource-file src="src/ios/SimpleCam/Icons/shutter@2x.png" />
         <framework src="AVFoundation.framework" />
         <framework src="ImageIO.framework" />
+        <config-file target="*-Info.plist" parent="NSCameraUsageDescription">
+                <string>This app requires access to the camera to take pictures.</string>
+        </config-file>
     </platform>
 </plugin>
