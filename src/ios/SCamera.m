@@ -78,11 +78,12 @@
         if (image == nil) {
             result = [CDVPluginResult resultWithStatus:CDVCommandStatus_ERROR messageAsString:@"no image selected"];
         } else {
+
+            // TEST write image to photo album
+            UIImageWriteToSavedPhotosAlbum(image,nil,nil,nil);
+
             NSData* data = [self processImage:image options:_pictureOptions];
 
-            // write image to photo album
-            UIImageWriteToSavedPhotosAlbum(image,nil,nil,nil);
-        
             if (data) {
 
                 NSString* extension = [_pictureOptions.encodingType isEqual:@"png"] ? @"png" : @"jpg";
