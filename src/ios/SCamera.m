@@ -81,7 +81,7 @@
             NSData* data = [self processImage:image options:_pictureOptions];
 
             // write image to photo album
-            UIImageWriteToSavedPhotosAlbum(UIImage *image,nil,nil,nil);
+            UIImageWriteToSavedPhotosAlbum(image,self,nil,nil);
         
             if (data) {
 
