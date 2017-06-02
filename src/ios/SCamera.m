@@ -4,6 +4,7 @@
 //  Created by Christopher McCabe on 02/09/2016.
 //
 //
+// Modified 06-01-2017 by R.E. Moore Jr. to allow save to Photo Album
 
 #import "SCamera.h"
 #import "UIImage+CropScaleOrientation.h"
@@ -32,6 +33,8 @@
 {
     NSData* data = nil;
 
+    BOOL saveToPhotoAlbum = options.saveToPhotoAlbum;
+
     if ((options.targetSize.width > 0) && (options.targetSize.height > 0)) {
         image = [image imageByScalingNotCroppingForSize:options.targetSize];
     }
@@ -46,6 +49,11 @@
         } else {
             data = UIImageJPEGRepresentation(image, [options.quality floatValue] / 100.0f);
         }
+    }
+
+    if (saveToPhotoAlbum) {
+        // write image to photo album
+        UIImageWriteToSavedPhotosAlbum(image,nil,nil,nil);
     }
 
     return data;
@@ -78,9 +86,6 @@
         if (image == nil) {
             result = [CDVPluginResult resultWithStatus:CDVCommandStatus_ERROR messageAsString:@"no image selected"];
         } else {
-
-            // TEST write image to photo album
-            UIImageWriteToSavedPhotosAlbum(image,nil,nil,nil);
 
             NSData* data = [self processImage:image options:_pictureOptions];
 
@@ -155,12 +160,14 @@
 
     NSNumber* targetWidth = [command argumentAtIndex:1 withDefault:nil];
     NSNumber* targetHeight = [command argumentAtIndex:2 withDefault:nil];
+
     pictureOptions.targetSize = CGSizeMake(0, 0);
     if ((targetWidth != nil) && (targetHeight != nil)) {
         pictureOptions.targetSize = CGSizeMake([targetWidth floatValue], [targetHeight floatValue]);
     }
 
     pictureOptions.encodingType = [command argumentAtIndex:3 withDefault:@"jpeg"];
+    pictureOptions.saveToPhotoAlbum = [command argumentAtIndex:4 withDefault:NO];
 
     return pictureOptions;
 }

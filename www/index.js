@@ -9,8 +9,9 @@ simpleCamExports.getPicture = function(successCallback, errorCallback, options) 
    var targetWidth = options.targetWidth || -1;
    var targetHeight = options.targetHeight || -1;
    var encodingType = options.encodingType || 'jpeg';
+   var saveToPhotoAlbum = options.saveToPhotoAlbum || 'NO';
 
-   var args = [quality, targetWidth, targetHeight, encodingType];
+   var args = [quality, targetWidth, targetHeight, encodingType, saveToPhotoAlbum];
 
    cordova.exec(successCallback, errorCallback, 'SimpleCam', 'takePicture', args);
 };
