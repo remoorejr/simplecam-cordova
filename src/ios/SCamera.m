@@ -53,6 +53,7 @@
 
     if (saveToPhotoAlbum) {
         // write image to photo album
+        // will ask for permission once, user can change this pemission value in settings
         UIImageWriteToSavedPhotosAlbum(image,nil,nil,nil);
     }
 
@@ -167,7 +168,7 @@
     }
 
     pictureOptions.encodingType = [command argumentAtIndex:3 withDefault:@"jpeg"];
-    pictureOptions.saveToPhotoAlbum = [command argumentAtIndex:4 withDefault:NO];
+    pictureOptions.saveToPhotoAlbum = [[command argumentAtIndex:4 withDefault:@(NO)] boolValue];
 
     return pictureOptions;
 }
